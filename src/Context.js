@@ -9,18 +9,18 @@ var _db;
  * @param {Name To Database} dbName
  * @param {Function Callback} callback
  */
-async function CreateConnection(url, dbName) {
+async function CreateConnection(url) {
   const client = await new MongoClient(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
   await client.connect().then(() => {
-    _db = client.db(dbName);
+    _db = client;
   });
 }
 
-function GetConnection() {
-  return _db;
+function GetConnection(dbName) {
+  return _db.db(dbName);
 }
 
 export { CreateConnection, GetConnection };
